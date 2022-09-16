@@ -1,0 +1,27 @@
+{
+    "welcomeFile": "index.html",
+    "authenticationMethod": "route",
+    "logout": {
+      "logoutEndpoint": "/do/logout"
+    },
+    "routes": [
+      {
+        "source": "(srv/)(.*)",
+        "destination": "tasks_svc_be",
+        "csrfProtection": false,
+        "authenticationType": "none"
+      },
+      {
+        "source": "(catalog/)(.*)",
+        "destination": "tasks_svc_be",
+        "csrfProtection": false,
+        "authenticationType": "none"
+      },
+      {
+        "localDir": "webapp",
+        "source": "^/(.*)",
+        "authenticationType": "none"
+      }
+    ]
+  }
+  

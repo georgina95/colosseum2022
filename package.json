@@ -5,6 +5,13 @@
   "repository": "<Add your repository here>",
   "license": "UNLICENSED",
   "private": true,
+  "files": [
+    "app",
+    "srv",
+    "db",
+    "index.cds",
+    "index.js"
+  ],
   "dependencies": {
     "@sap/cds": "^6",
     "express": "^4"
@@ -14,6 +21,11 @@
   },
   "scripts": {
     "start": "cds run"
+  },
+  "cds": {
+    "requires": {
+      "db": "sql"
+    }
   },
   "engines": {
     "node": "^16.15"

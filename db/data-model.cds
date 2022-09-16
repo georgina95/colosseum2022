@@ -1,7 +1,8 @@
-namespace my.bookshop;
+namespace my.todoapp;
 
-entity Books {
+entity Tasks {
   key ID : Integer;
   title  : String;
-  stock  : Integer;
+  description : String;
+  duedate : Date;
 }
