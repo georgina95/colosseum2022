@@ -7,6 +7,6 @@ service CatalogService @(path:'/browse') {
   /** For displaying lists of Tasks */
   @readonly entity ListOfTasks as projection on Tasks;
   
-  @readonly entity Tasks as projection on my.Tasks { *
+  entity Tasks as projection on my.Tasks { *
   };
 }
