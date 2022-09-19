@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Capire Books </title>
+    <link rel="stylesheet" href="https://unpkg.com/primitive-ui/dist/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <style>
+        .hovering tr:hover td { color:cyan; background: #123; cursor: pointer; }
+        .rating-stars { color:teal }
+        .succeeded { color:teal }
+        .failed { color:red }
+        .user {text-align: end; color: grey;}
+    </style>
+</head>
+
+<body class="small-container", style="margin-top: 70px;">
+<div id='app'>
+
+    <h1> Colosseum Tasks </h1>
+
+    <table id='tasks' class="hovering">
+        <thead>
+            <th> Title </th>
+            <th> Description </th>
+            <th> Due Date </th>
+        </thead>
+        <tr v-for="task in list" v-bind:id="task.ID" v-on:click="inspect">
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.duedate }}</td>
+    </table>
+
+    <div v-if="task" style="background-color: cyan;">
+        <h2>{{ task.title }}</h2>
+        <p> {{ task.description }} </p>
+    </div>
+    <div v-else>
+        ( click on a row to see details... )
+    </div>
+
+</div>
+</body>
+
+<script src="app.js"></script>
+</html>
