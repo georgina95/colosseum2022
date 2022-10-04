@@ -1,0 +1,51 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+    <Dialog id="editTaskDialog" title="{i18n>editTaskDetails}">
+        <content>
+			<f:Form id="editTaskForm"
+				editable="true">
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
+						columnsXL="1" columnsL="1" columnsM="1"
+						singleContainerFullSize="false" />
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="{i18n>TaskTitle}">
+								<f:fields>
+									<Input value="{CatalogModel>title}" id="editTitle"/>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>TaskDescription}">
+								<f:fields>
+									<Input value="{CatalogModel>description}" id="editDescription"/>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>TaskDueDate}">
+								<f:fields>
+									<DatePicker valueFormat="yyyy-MM-dd" value="{CatalogModel>duedate}" id="editDueDate"/>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>TaskIsDone}">
+								<f:fields>
+									<Switch state="{CatalogModel>status}" customTextOn=" " customTextOff=" " id="editDone"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+		</content>
+        <buttons>
+            <Button type="Reject" text="{i18n>Delete}" press="onDeleteTask" />
+            <Button type="Accept" text="{i18n>Save}" press="onSaveEditTask" />
+            <Button text="{i18n>Close}" press="onCloseEditDialog" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,48 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+    <Dialog id="newTaskDialog" title="{i18n>newTaskDetails}">
+        <content>
+			<f:Form id="newTaskForm"
+				editable="true">
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
+						columnsXL="1" columnsL="1" columnsM="1"
+						singleContainerFullSize="false" />
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="{i18n>TaskTitle}">
+								<f:fields>
+									<Input value="{/title}" id="inputTitle"/>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>TaskDescription}">
+								<f:fields>
+									<Input value="{/description}" id="inputDescription"/>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>TaskDueDate}">
+								<f:fields>
+									<DatePicker valueFormat="yyyy-MM-dd" value="{/duedate}" id="inputDueDate"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+		</content>
+        <beginButton>
+            <Button type="Emphasized" text="{i18n>Add}" press="onAddTask" />
+        </beginButton>
+
+        <endButton>
+            <Button text="{i18n>Close}" press="onCloseDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

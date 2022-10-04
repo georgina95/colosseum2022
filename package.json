@@ -17,11 +17,13 @@
     "express": "^4"
   },
   "devDependencies": {
+    "@sap/ux-specification": "^1.96.21",
     "sqlite3": "^5.0.4"
   },
   "scripts": {
     "start": "cds run",
-    "watch": "cds watch"
+    "watch": "cds watch",
+    "watch-app": "cds watch --open app/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
@@ -55,5 +57,8 @@
       "no-console": "off",
       "require-atomic-updates": "off"
     }
-  }
+  },
+  "sapux": [
+    "app/app"
+  ]
 }

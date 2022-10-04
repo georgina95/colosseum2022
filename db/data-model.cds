@@ -5,4 +5,5 @@ entity Tasks {
   title  : String;
   description : String;
   duedate : Date;
+  status: Boolean;
 }
