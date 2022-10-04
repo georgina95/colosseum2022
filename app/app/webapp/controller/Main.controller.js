@@ -14,7 +14,10 @@ sap.ui.define([
 			formatter: formatter,
 			
             onInit: function () {
-
+				const oFroDate = new Date(0);
+				const oToDate = new Date((new Date()).setFullYear((new Date()).getFullYear()+1));
+				const oFilterModel = new sap.ui.model.json.JSONModel({ dueFrom: oFroDate, dueTo: oToDate, doneTrue: true, doneFalse: true, sortProperty: 'ID', descending: false });
+				this.getView().setModel(oFilterModel, "Filters");
             },
 
 			onPressAddNewTask: async function (oEvent) {
@@ -23,16 +26,14 @@ sap.ui.define([
 				} 
 
 				this.getView().addDependent(this.newTaskDialog);
-				const sCurrentDate = this.getNewDate();
+				const sCurrentDate = this.getNewDate(new Date());
 				const iNewId = this.getNewId();
 				const oNewTaskModel = new sap.ui.model.json.JSONModel({ title: "", description: "", duedate: sCurrentDate, status: false, ID: iNewId });
 				this.newTaskDialog.setModel(oNewTaskModel);
 				this.newTaskDialog.open();
 			},
 
-			getNewDate: function() {
-				const oDate = new Date();
-
+			getNewDate: function(oDate) {
 				const sYear = oDate.getFullYear().toString();
 				let iMonth = oDate.getMonth() + 1;
 				const sMonth = (iMonth < 10) ? '0' + iMonth : iMonth.toString();
@@ -114,6 +115,92 @@ sap.ui.define([
 			onCloseEditDialog: function() {
 				this.getView().getModel("CatalogModel").resetChanges("taskGroup");
 				this.editTaskDialog.close();
+			},
+
+			onPressFilter: async function() {
+				if (!this.filterDialog) {
+					this.filterDialog = await this.loadFragment({ name: "colosseum2022.app.fragment.FilterDialog" });
+				} 
+
+				this.getView().addDependent(this.filterDialog);
+				this.filterDialog.open();
+			},
+
+			onFilter: function () {
+				const oList = this.byId("MainTaskList");
+				const oBinding = oList.getBinding("items");
+
+				const aFilters = this.createFilters();
+
+				oBinding.filter(aFilters, sap.ui.model.FilterType.Application);
+
+				this.filterDialog.close();
+			},
+
+			createFilters: function() {
+				const oFilterModel = this.getView().getModel("Filters");
+				const oValues = oFilterModel.getData();
+
+				const sFroDate = this.getNewDate(oValues.dueFrom);
+				const sToDate = this.getNewDate(oValues.dueTo);
+
+				const oDueFromFilter = new sap.ui.model.Filter({ path: "duedate", operator: sap.ui.model.FilterOperator.GE, value1: sFroDate });
+				const oDueToFilter = new sap.ui.model.Filter({ path: "duedate", operator: sap.ui.model.FilterOperator.LE, value1: sToDate });
+				const oDueFilter = new sap.ui.model.Filter({ filters: [oDueFromFilter, oDueToFilter], and: true });
+				
+				const aFilters = [oDueFilter];
+				if(oValues.doneTrue) {
+					if(!oValues.doneFalse) {
+						aFilters.push(new sap.ui.model.Filter({ path: "status", operator: sap.ui.model.FilterOperator.EQ, value1: true }));
+					}
+				} else {
+					if(oValues.doneFalse) {
+						aFilters.push(new sap.ui.model.Filter({ path: "status", operator: sap.ui.model.FilterOperator.EQ, value1: false }));
+					}
+				}
+
+				return new sap.ui.model.Filter({ aFilters, and: true });
+			},
+
+			onCloseFilterDialog: function() {
+				this.filterDialog.close();
+			},
+
+			onPressSort: async function () {
+				if (!this.sorterDialog) {
+					this.sorterDialog = await this.loadFragment({ name: "colosseum2022.app.fragment.SorterDialog" });
+				} 
+
+				this.getView().addDependent(this.sorterDialog);
+				this.sorterDialog.open();
+			},
+
+			onSortPropertyChange: function(oEvent) {
+				const sIndex = oEvent.getParameter("selectedIndex");
+				const oSource = oEvent.getSource();
+				const aButtons = oSource.getButtons();
+
+				const sSelectedProperty = aButtons[sIndex].getId().split("--").pop();
+				const oFilterModel = this.getView().getModel("Filters");
+				oFilterModel.setProperty("/sortProperty", sSelectedProperty);
+			},
+
+			onSort: function() {
+				const oList = this.byId("MainTaskList");
+				const oBinding = oList.getBinding("items");
+
+				const oFilterModel = this.getView().getModel("Filters");
+				const oValues = oFilterModel.getData();
+
+				const oSorter = new sap.ui.model.Sorter({ path: oValues.sortProperty, descending: oValues.descending });
+
+				oBinding.sort(oSorter);
+
+				this.sorterDialog.close();
+			},
+
+			onCloseSorterDialog: function() {
+				this.sorterDialog.close();
 			},
 
         });

@@ -1,0 +1,49 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+    <Dialog id="sorterDialog" title="{i18n>Sorter}">
+        <content>
+			<f:Form
+				editable="true">
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
+						columnsXL="1" columnsL="1" columnsM="1"
+						singleContainerFullSize="false" />
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="{i18n>SortBy}">
+								<f:fields>
+									<RadioButtonGroup columns="1" select="onSortPropertyChange" selectedIndex="0">
+										<RadioButton id="ID" text="{i18n>ID}" />
+										<RadioButton id="title" text="{i18n>TaskTitle}" />
+										<RadioButton id="description" text="{i18n>TaskDescription}" />
+										<RadioButton id="duedate" text="{i18n>TaskDueDate}" />
+										<RadioButton id="status" text="{i18n>TaskIsDone}" />
+									</RadioButtonGroup>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>Descending}">
+								<f:fields>
+									<Switch state="{Filters>/descending}" customTextOn="DESC" customTextOff="ASC" />
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+		</content>
+        <beginButton>
+            <Button type="Emphasized" text="{i18n>OK}" press="onSort" />
+        </beginButton>
+
+        <endButton>
+            <Button text="{i18n>Close}" press="onCloseSorterDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,48 @@
+<core:FragmentDefinition 
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+    <Dialog id="filterDialog" title="{i18n>Filters}">
+        <content>
+			<f:Form
+				editable="true">
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
+						columnsXL="1" columnsL="1" columnsM="1"
+						singleContainerFullSize="false" />
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="{i18n>TaskDueDate}">
+								<f:fields>
+									<DateRangeSelection
+										delimiter="-"
+										dateValue="{Filters>/dueFrom}"
+										secondDateValue="{Filters>/dueTo}"
+										displayFormat="yyyy/MM/dd" />
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>TaskIsDone}">
+								<f:fields>
+									<CheckBox text="{i18n>Done}" selected="{Filters>/doneTrue}" />
+									<CheckBox text="{i18n>NotDone}" selected="{Filters>/doneFalse}" />
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+		</content>
+        <beginButton>
+            <Button type="Emphasized" text="{i18n>OK}" press="onFilter" />
+        </beginButton>
+
+        <endButton>
+            <Button text="{i18n>Close}" press="onCloseFilterDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
