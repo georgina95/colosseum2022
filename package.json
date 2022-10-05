@@ -23,7 +23,10 @@
   "scripts": {
     "start": "cds run",
     "watch": "cds watch",
-    "watch-app": "cds watch --open app/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-app": "cds watch --open app/webapp/index.html?sap-ui-xx-viewCache=false",
+	"build": "cds build/all --clean",
+    "deploy": "cds deploy",
+    "deploy:cf:trial": "cf deploy mta_archives/colosseum2022.mtar -e sapcp-cf-trial.mtaext"
   },
   "cds": {
     "requires": {
